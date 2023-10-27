@@ -158,9 +158,104 @@ bool check(Judgement j) {
     return false;
 }
 
-int main() {
+bool cmp(char x, char y) { // x 是否优先于 y
+    if (x == '!') {
+        return y == '(';
+    } else if (x == '&') {
+        return y == '(' || y == '!';
+    } else if (x == '|') {
+        return y == '(' || y == '!' || y == '&';
+    } else if (x == '>') {
+        return y == '(' || y == '!' || y == '&' || y == '|';
+    } else if (x == '=') {
+        return y == '(' || y == '!' || y == '&' || y == '|' || y == '>';
+    }
+    return false;
+}
 
-    // e.g 1
+Term* read() {
+
+    std::string str, post;
+    std::cin >> str;
+
+    int n = str.length();
+    std::stack<char> s;
+
+    for (int i = 0; i < n; i++) {
+        if (str[i] == '!' || str[i] == '&' || str[i] == '|' || str[i] == '>' || str[i] == '=') {
+            if (s.empty() || cmp(str[i], s.top())) {
+                s.push(str[i]);
+            } else {
+                while (!s.empty()) {
+                    post.push_back(s.top());
+                    s.pop();
+                }
+            }
+        } else if (str[i] == '(') {
+            s.push(str[i]);
+        } else if (str[i] == ')') {
+            while (s.top() != '(') {
+                post.push_back(s.top());
+                s.pop();
+            }
+            s.pop(); // 弹出最后一个 '('
+        } else {
+            post.push_back(str[i]);
+        }
+    }
+    while (!s.empty()) {
+        post.push_back(s.top());
+        s.pop();
+    }
+
+    int m = post.length();
+
+    std::stack<Term*> stk;
+    for (int i = 0; i < m; i++) {
+        if (post[i] == '!') {
+            Term *top1 = stk.top();
+            stk.pop();
+            stk.push(new Term(0, post[i], top1));
+        } else if (post[i] == '&') {
+            Term *top1 = stk.top();
+            stk.pop();
+            Term *top2 = stk.top();
+            stk.pop();
+            stk.push(new Term(top2, post[i], top1));
+        } else if (post[i] == '|') {
+            Term *top1 = stk.top();
+            stk.pop();
+            Term *top2 = stk.top();
+            stk.pop();
+            stk.push(new Term(top2, post[i], top1));
+        } else if (post[i] == '>') {
+            Term *top1 = stk.top();
+            stk.pop();
+            Term *top2 = stk.top();
+            stk.pop();
+            stk.push(new Term(top2, post[i], top1));
+        } else if (post[i] == '=') {
+            Term *top1 = stk.top();
+            stk.pop();
+            Term *top2 = stk.top();
+            stk.pop();
+            stk.push(new Term(top2, post[i], top1));
+        } else {
+            stk.push(new Term((Term*)nullptr, post[i], (Term*)nullptr));
+        }
+    }
+    return stk.top();
+}
+
+int main() {
+    
+    Judgement jj;
+    jj.l.push(read());
+    jj.r.push(read());
+
+    puts(check(jj) ? "Yes" : "No");
+
+    /*// e.g 1
     Term *a = new Term((Term*)nullptr, 'Q', (Term*)nullptr);
     Term *b = new Term((Term*)nullptr, '!', a); // !Q
     Term *c = new Term((Term*)nullptr, 'P', (Term*)nullptr);
@@ -175,7 +270,7 @@ int main() {
     jj.l.push(f);
     jj.r.push(h);
 
-    puts(check(jj) ? "Yes" : "No");
+    puts(check(jj) ? "Yes" : "No");*/
 
     /*// e.g 2
     Term *a = new Term((Term*)nullptr, 'P', (Term*)nullptr);
