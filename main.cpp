@@ -158,39 +158,41 @@ bool check(Judgement j) {
     return false;
 }
 
-bool cmp(char x, char y) { // x 是否优先于 y
+bool cmp(char x, char y) { // x 是否 >= y
     if (x == '!') {
-        return y == '(';
+        return y == '!' || y == '&' || y == '|' || y == '>' || y == '=';
     } else if (x == '&') {
-        return y == '(' || y == '!';
+        return y == '&' || y == '|' || y == '>' || y == '=';
     } else if (x == '|') {
-        return y == '(' || y == '!' || y == '&';
+        return y == '|' || y == '>' || y == '=';
     } else if (x == '>') {
-        return y == '(' || y == '!' || y == '&' || y == '|';
+        return y == '>' || y == '=';
     } else if (x == '=') {
-        return y == '(' || y == '!' || y == '&' || y == '|' || y == '>';
+        return y == '=';
     }
     return false;
 }
 
 Term* read() {
 
-    std::string str, post;
-    std::cin >> str;
+    std::string in, str, post;
+    std::getline(std::cin, in);
+
+    int t = in.length();
+    for (int i = 0; i < t; i++)
+        if (in[i] != ' ')
+            str.push_back(in[i]);
 
     int n = str.length();
     std::stack<char> s;
 
     for (int i = 0; i < n; i++) {
         if (str[i] == '!' || str[i] == '&' || str[i] == '|' || str[i] == '>' || str[i] == '=') {
-            if (s.empty() || cmp(str[i], s.top())) {
-                s.push(str[i]);
-            } else {
-                while (!s.empty()) {
-                    post.push_back(s.top());
-                    s.pop();
-                }
+            while (!s.empty() && cmp(s.top(), str[i])) {
+                post.push_back(s.top());
+                s.pop();
             }
+            s.push(str[i]);
         } else if (str[i] == '(') {
             s.push(str[i]);
         } else if (str[i] == ')') {
@@ -207,7 +209,7 @@ Term* read() {
         post.push_back(s.top());
         s.pop();
     }
-
+    std::cout << post << std::endl;
     int m = post.length();
 
     std::stack<Term*> stk;
