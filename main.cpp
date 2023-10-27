@@ -51,12 +51,12 @@ void print(std::queue<Term*> qTerm) {
 }
 
 bool check(Judgement j) {
-    puts("---Start---");
+    /*puts("---Start---");
     puts("L:");
     print(j.l);
     puts("R:");
     print(j.r);
-    puts("---End---");
+    puts("---End---");*/
     if (!isReduced(j.l)) {
         Term* tmp = j.l.front();
         if (tmp->op == '!') {
@@ -183,6 +183,9 @@ Term* read() {
         if (in[i] != ' ')
             str.push_back(in[i]);
 
+    if (str.length() == 0)
+        str = "P|!P";
+    
     int n = str.length();
     std::stack<char> s;
 
@@ -209,7 +212,7 @@ Term* read() {
         post.push_back(s.top());
         s.pop();
     }
-    std::cout << post << std::endl;
+    // std::cout << post << std::endl;
     int m = post.length();
 
     std::stack<Term*> stk;
@@ -250,6 +253,9 @@ Term* read() {
 }
 
 int main() {
+
+    freopen("input.in", "r", stdin);
+    freopen("output.out", "w", stdout);
     
     Judgement jj;
     jj.l.push(read());
