@@ -1,6 +1,6 @@
 # Auto-Proof
 
-Repository for the Course Discrete Mathematics(1), 2023 Fall
+Repository for the codes of Discrete Mathematics(1), 2023 Fall
 
 **目录**
 - [Auto-Proof](#auto-proof)
@@ -108,7 +108,7 @@ for (int i = 0; i < m; i++) {
         stk.push(new Term((Term*)nullptr, post[i], (Term*)nullptr));
     }
 }
-``` 
+```
 
 ### 模拟王浩算法
 
