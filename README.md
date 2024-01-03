@@ -1,9 +1,9 @@
-# Auto-Proof
+# Auto Proof
 
 Repository for the codes of Discrete Mathematics(1), 2023 Fall
 
 **目录**
-- [Auto-Proof](#auto-proof)
+- [Auto Proof](#auto-proof)
   - [作业描述](#作业描述)
   - [代码实现](#代码实现)
     - [中缀表达式转为后缀表达式](#中缀表达式转为后缀表达式)
