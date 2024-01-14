@@ -1,6 +1,6 @@
 # Auto Proof
 
-Repository for the codes of Discrete Mathematics(1), 2023 Fall
+Repository for the codes of Discrete Mathematics(1), Fall 2023
 
 **目录**
 - [Auto Proof](#auto-proof)
