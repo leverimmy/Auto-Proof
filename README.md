@@ -16,9 +16,9 @@ Repository for the codes of the project of Discrete Mathematics(1), Fall 2023
 
 ## 作业描述
 
-输入两个逻辑表达式 $P$ 和 $Q$（以中缀表达式的形式），通过模拟 [王浩算法](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=5392526)，判断 $P \to Q$ 是否为重言式。
+输入两个逻辑表达式 $P$ 和 $Q$（以中缀表达式的形式），通过模拟[王浩算法](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=5392526)，判断 $P \to Q$ 是否为重言式。
 
-在输入数据中，使用 `!` 表示 **非**，`&` 表示 **与**，`|` 表示 **或**，`>` 表示 **蕴含**，`=` 表示 **双蕴含**。
+在输入数据中，使用 `!` 表示**非**，`&` 表示**与**，`|` 表示**或**，`>` 表示**蕴含**，`=` 表示**双蕴含**。
 
 如果 $P \to Q$ 为重言式，则输出 `Yes`；否则输出 `No`。
 
@@ -26,7 +26,7 @@ Repository for the codes of the project of Discrete Mathematics(1), Fall 2023
 
 ### 中缀表达式转为后缀表达式
 
-我们可以用一个 **栈** 来存储运算符，用一个 `std::string` 来存储输出后缀表达式。转化规则：
+我们可以用一个**栈**来存储运算符，用一个 `std::string` 来存储输出后缀表达式。转化规则：
 
 1. 确立各个操作符的优先级：`(`, `)` > `!` > `&` > `|` > `>` > `=`。
 2. 当扫描到左右括号，则直接入栈；若扫描到的是运算符：
@@ -114,7 +114,7 @@ for (int i = 0; i < m; i++) {
 
 #### 算法主体
 
-按照教材上的 $10$ 种情况进行讨论即可。值得注意的是前件为空公式的情况，如果不进行特判，则会出错，所以我用 $P \lor \lnot P$ 替代了空公式。
+按照教材上的 10 种情况进行讨论即可。值得注意的是前件为空公式的情况，如果不进行特判，则会出错，所以我用 $P \lor \lnot P$ 替代了空公式。
 
 ```cpp
 if (str.length() == 0)
@@ -165,7 +165,7 @@ return false;
 
 ## 总结和心得
 
-由于整体的代码超过了 $250$ 行，所以我经历了比较艰难的调试过程。在调试的过程中，我使用了一些辅助函数进行中间结果的输出，这样能方便地显示当前状态。
+由于整体的代码超过了 250 行，所以我经历了比较艰难的调试过程。在调试的过程中，我使用了一些辅助函数进行中间结果的输出，这样能方便地显示当前状态。
 
 ```cpp
 void printTree(Term* u) { // 输出以 u 为根节点的表达式树
@@ -193,4 +193,4 @@ void print(std::queue<Term*> qTerm) { // 输出多棵表达式树
 }
 ```
 
-这次研讨，不仅提升了我对 C++ 语言的熟练程度，还引导我对王浩算法以及命题逻辑的公理系统进行了更深一步的了解。感谢清华大学计算机系 [马昱春](https://www.cs.tsinghua.edu.cn/info/1131/5274.htm) 老师的指导，助教们在微信群里的答疑，以及 [Hao Wang (academic) - Wikipedia](https://en.wikipedia.org/wiki/Hao_Wang_(academic)) 和 [Towards Mechanical Mathematics](https://ieeexplore.ieee.org/document/5392526) 中的相关资料。
+这次研讨，不仅提升了我对 C++ 语言的熟练程度，还引导我对王浩算法以及命题逻辑的公理系统进行了更深一步的了解。感谢清华大学计算机系[马昱春](https://www.cs.tsinghua.edu.cn/info/1131/5274.htm)老师的指导，助教们在微信群里的答疑，以及 [Hao Wang (academic) - Wikipedia](https://en.wikipedia.org/wiki/Hao_Wang_(academic)) 和 [Towards Mechanical Mathematics](https://ieeexplore.ieee.org/document/5392526) 中的相关资料。
